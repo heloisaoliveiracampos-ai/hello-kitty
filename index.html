@@ -309,4 +309,4 @@
         /* 3. GERADOR DE CORAÇÕES AO CLICAR NA TELA */
         document.addEventListener('click', (evento) => {
             // Evita criar corações se clicar em botões, links ou cards para não atrapalhar
-if (evento.target.tagName === 'A' || evento.target.closest('.card') || evento.target.id === 'icone-brinde') return;const coracao = document.createElement('div');coracao.classList.add('coracao-clique');coracao.innerText = '💗';// Posiciona exatamente onde o mouse clicoucoracao.style.left = evento.pageX + 'px';coracao.style.top = evento.pageY + 'px';document.body.appendChild(coracao);// Remove o elemento após o fim da animaçãosetTimeout(() => {coracao.remove();}, 1000);});
+            
