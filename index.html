@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mundo da Hello Kitty</title>
+    <style>
+        /* Configurações Gerais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #ffeef2;
+            color: #4a4a4a;
+        }
+
+        /* Cabeçalho */
+        header {
+            background-color: #ffb6c1;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 5px solid #ff69b4;
+            position: relative;
+        }
+
+        .logo-container {
+            display: inline-block;
+            position: relative;
+        }
+
+        h1 {
+            color: #fff;
+            font-size: 2.5rem;
+            text-shadow: 3px 3px 0px #ff69b4;
+            margin-bottom: 10px;
+        }
+
+        /* Laço da Hello Kitty em CSS */
+        .laco {
+            width: 40px;
+            height: 30px;
+            background-color: #ff0000;
+            border-radius: 10px;
+            position: absolute;
+            top: -15px;
+            right: -25px;
+            transform: rotate(15px);
+        }
+        .laco::before, .laco::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 25px;
+            background-color: #ff0000;
+            border-radius: 50%;
+            top: 2px;
+        }
+        .laco::before { left: -10px; }
+        .laco::after { right: -10px; }
+
+        /* Menu de Navegação */
+        nav {
+            margin-top: 15px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 8px 20px;
+            margin: 0 10px;
+            background-color: #ff69b4;
+            border-radius: 20px;
+            transition: 0.3s;
+            display: inline-block;
+        }
+
+        nav a:hover {
+            background-color: #ff0000;
+            transform: scale(1.1);
+        }
+
+        /* Conteúdo Principal */
+        main {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        /* Seção Sobre */
+        .sobre {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 30px;
+            border: 4px dashed #ffb6c1;
+            text-align: center;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+        }
+
+        .sobre h2 {
+            color: #ff69b4;
+            margin-bottom: 15px;
+            font-size: 2rem;
+        }
+
+        .sobre p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        /* Grid de Cards de Amigos */
+        .grid-amigos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            border: 3px solid #ffb6c1;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: #ff69b4;
+        }
+
+        /* Avatar Temporário dos Personagens */
+        .avatar {
+            width: 100px;
+            height: 100px;
+            background-color: #ffeef2;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            border: 2px solid #ffb6c1;
+        }
+
+        .card h3 {
+            color: #ff69b4;
+            margin-bottom: 10px;
+        }
+
+        /* Rodapé */
+        footer {
+            background-color: #ffb6c1;
+            text-align: center;
+            padding: 20px;
+            color: #fff;
+            font-weight: bold;
+            border-top: 5px solid #ff69b4;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <h1>Hello Kitty & Amigos</h1>
+            <div class="laco"></div>
+        </div>
+        <nav>
+            <a href="#sobre">Sobre</a>
+            <a href="#amigos">Amigos</a>
+            <a href="#fatos">Curiosidades</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="sobre" class="sobre">
+            <h2>Bem-vindo ao nosso mundinho rosa!</h2>
+            <p>A Hello Kitty nasceu em Londres, adora fazer novos amigos e ama torta de maçã feita por sua mãe! Ela espalha felicidade e fofura por onde passa desde 1974.</p>
+        </section>
+
+        <section id="amigos">
+            <h2 style="text-align: center; color: #ff69b4; margin-bottom: 30px; font-size: 2rem;">Conheça a Turma</h2>
+            <div class="grid-amigos">
+                <div class="card">
+                    <div class="avatar">🎀</div>
+                    <h3>Hello Kitty</h3>
+                    <p>Uma menina alegre, bondosa e de coração de ouro.</p>
+                </div>
+                <div class="card">
+                    <div class="avatar">😈</div>
+                    <h3>Kuromi</h3>
+                    <p>Adora causar um pouquinho de travessura, mas é super fofa.</p>
+                </div>
+                <div class="card">
+                    <div class="avatar">🐰</div>
+                    <h3>My Melody</h3>
+                    <p>Muito honesta, meiga e usa um capuz rosa adorável.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Feito com ❤️ por um fã da Hello Kitty | 2026</p>
+    </footer>
+
+</body>
+</html>
