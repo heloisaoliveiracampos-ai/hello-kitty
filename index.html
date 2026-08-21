@@ -213,3 +213,146 @@
 
 </body>
 </html>
+        <!-- Seção de Jogos -->
+        <section id="jogos" style="margin-bottom: 50px;">
+            <h2 style="text-align: center; color: #ff69b4; margin-bottom: 30px; font-size: 2rem;">🕹️ Mini-Jogos Interativos</h2>
+            <div class="container-jogos">
+                
+                <!-- JOGO 1: MEMÓRIA -->
+                <div class="painel-jogo">
+                    <h3>Jogo da Memória</h3>
+                    <p style="font-size: 0.9rem; margin-bottom: 15px;">Encontre os pares dos amigos!</p>
+                    <div class="tabuleiro-memoria" id="tabuleiro">
+                        <!-- As cartas serão geradas pelo JavaScript -->
+                    </div>
+                    <button class="btn-jogar" style="margin-top: 15px;" onclick="reiniciarMemoria()">Reiniciar Jogo</button>
+                </div>
+
+                <!-- JOGO 2: CLIQUE NA TORTA -->
+                <div class="painel-jogo">
+                    <h3>Pegue a Torta de Maçã 🍎</h3>
+                    <div class="placar">Pontos: <span id="pontos">0</span></div>
+                    <button class="btn-jogar" id="btn-torta" onclick="iniciarJogoTorta()">Iniciar Jogo</button>
+                    <div class="area-clique">
+                        <div id="torta" onclick="marcarPonto()">🥧</div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    <script>
+        /* ==================== LÓGICA JOGO DA MEMÓRIA ==================== */
+        const emojis = ['🎀', '🎀', '😈', '😈', '🐰', '🐰', '🍎', '🍎', '🐸', '🐸', '🐧', '🐧', '⭐️', '⭐️', '🍫', '🍫'];
+        let cartasViradas = [];
+        let paresEncontrados = 0;
+
+        function embaralhar(array) {
+            return array.sort(() => Math.random() - 0.5);
+        }
+
+        function criarTabuleiro() {
+            const tabuleiro = document.getElementById('tabuleiro');
+            if(!tabuleiro) return;
+            tabuleiro.innerHTML = '';
+            const emojisEmbaralhados = embaralhar([...emojis]);
+
+            emojisEmbaralhados.forEach((emoji, index) => {
+                const carta = document.createElement('div');
+                carta.classList.add('carta');
+                carta.dataset.emoji = emoji;
+                carta.dataset.index = index;
+                carta.innerText = emoji;
+                carta.addEventListener('click', virarCarta);
+                tabuleiro.appendChild(carta);
+            });
+        }
+
+        function virarCarta() {
+            if (cartasViradas.length >= 2 || this.classList.contains('virada') || this.classList.contains('par-encontrado')) {
+                return;
+            }
+
+            this.classList.add('virada');
+            cartasViradas.push(this);
+
+            if (cartasViradas.length === 2) {
+                checarPar();
+            }
+        }
+
+        function checarPar() {
+            const [carta1, carta2] = cartasViradas;
+
+            if (carta1.dataset.emoji === carta2.dataset.emoji) {
+                carta1.classList.add('par-encontrado');
+                carta2.classList.add('par-encontrado');
+                paresEncontrados++;
+                cartasViradas = [];
+                if (paresEncontrados === emojis.length / 2) {
+                    setTimeout(() => alert('Parabéns! Você encontrou todos os pares! 🎉'), 300);
+                }
+            } else {
+                setTimeout(() => {
+                    carta1.classList.remove('virada');
+                    carta2.classList.remove('virada');
+                    cartasViradas = [];
+                }, 800);
+            }
+        }
+
+        function reiniciarMemoria() {
+            cartasViradas = [];
+            paresEncontrados = 0;
+            criarTabuleiro();
+        }
+
+        /* ==================== LÓGICA JOGO DA TORTA ==================== */
+        let pontos = 0;
+        let jogoAtivo = false;
+        let intervaloTorta;
+        const torta = document.getElementById('torta');
+        const placar = document.getElementById('pontos');
+        const btnTorta = document.getElementById('btn-torta');
+
+        function iniciarJogoTorta() {
+            if (jogoAtivo) return;
+            
+            pontos = 0;
+            placar.innerText = pontos;
+            jogoAtivo = true;
+            btnTorta.innerText = "Corra!";
+            btnTorta.disabled = true;
+            
+            moverTorta();
+            intervaloTorta = setInterval(moverTorta, 1000);
+
+            setTimeout(() => {
+                clearInterval(intervaloTorta);
+                jogoAtivo = false;
+                btnTorta.innerText = "Iniciar Jogo";
+                btnTorta.disabled = false;
+                torta.style.top = "40%";
+                torta.style.left = "45%";
+                alert(`Fim de jogo! Você conseguiu pegar ${pontos} tortas! 🍎`);
+            }, 15000);
+        }
+
+        function moverTorta() {
+            if (!jogoAtivo || !torta) return;
+            const x = Math.floor(Math.random() * 80);
+            const y = Math.floor(Math.random() * 80);
+            torta.style.left = x + '%';
+            torta.style.top = y + '%';
+        }
+
+        function marcarPonto() {
+            if (!jogoAtivo) return;
+            pontos++;
+            placar.innerText = pontos;
+            moverTorta();
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            criarTabuleiro();
+        });
+    </script>
