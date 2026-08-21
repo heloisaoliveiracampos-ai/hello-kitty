@@ -309,4 +309,70 @@
         /* 3. GERADOR DE CORAÇÕES AO CLICAR NA TELA */
         document.addEventListener('click', (evento) => {
             // Evita criar corações se clicar em botões, links ou cards para não atrapalhar
+
+            <!-- ========================================== -->
+    <!-- CÓDIGO DA INTERATIVIDADE (COLE ANTES DE </body>) -->
+    <!-- ========================================== -->
+    <style>
+        /* Estilo dos corações mágicos */
+        .coracao-clique {
+            position: absolute;
+            color: #ff69b4;
+            font-size: 1.5rem;
+            pointer-events: none;
+            animation: subirESumir 1s ease-out forwards;
+            z-index: 9999;
+        }
+
+        @keyframes subirESumir {
+            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
+            100% { transform: translate(-50%, -150%) scale(1.5); opacity: 0; }
+        }
+    </style>
+
+    <script>
+        /* 1. Alerta ao clicar nos cards dos amigos */
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                // Deixa o cursor com a mãozinha ao passar o mouse no card
+                card.style.cursor = 'pointer';
+                
+                card.addEventListener('click', () => {
+                    const nomePersonagem = card.querySelector('h3').innerText;
+                    
+                    if (nomePersonagem.includes('Hello Kitty')) {
+                        alert("🎀 Hello Kitty diz: 'Vamos ser melhores amigos!'");
+                    } else if (nomePersonagem.includes('Kuromi')) {
+                        alert("😈 Kuromi diz: 'Pronto para um pouquinho de travessura?'");
+                    } else if (nomePersonagem.includes('My Melody')) {
+                        alert("🐰 My Melody diz: 'Tenha um dia cheio de doçura!'");
+                    } else {
+                        alert(`✨ Você clicou em ${nomePersonagem}!`);
+                    }
+                });
+            });
+        });
+
+        /* 2. Gerador de corações flutuantes ao clicar na tela */
+        document.addEventListener('click', (evento) => {
+            // Não solta corações se clicar em links do menu
+            if (evento.target.tagName === 'A') return;
+
+            const coracao = document.createElement('div');
+            coracao.classList.add('coracao-clique');
+            coracao.innerText = '💗';
             
+            // Posiciona onde o mouse clicou
+            coracao.style.left = evento.pageX + 'px';
+            coracao.style.top = evento.pageY + 'px';
+
+            document.body.appendChild(coracao);
+
+            // Apaga o coração depois que a animação termina
+            setTimeout(() => {
+                coracao.remove();
+            }, 1000);
+        });
+    </script>
+    <!-- ========================================== -->
